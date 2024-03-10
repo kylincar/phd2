@@ -40,8 +40,6 @@
 
 #include "cam_opencv.h"
 
-#include <opencv/cv.h>
-
 using namespace cv;
 
 CameraOpenCV::CameraOpenCV(int devNumber)
@@ -74,7 +72,8 @@ bool CameraOpenCV::Connect(const wxString& camId)
     {
         if (!pCapDev)
         {
-            pCapDev = new VideoCapture(DeviceNum);
+            //pCapDev = new VideoCapture(DeviceNum);
+            pCapDev = new VideoCapture(0);
         }
 
         if (!pCapDev)
@@ -84,7 +83,8 @@ bool CameraOpenCV::Connect(const wxString& camId)
 
         if (!pCapDev->isOpened())
         {
-            pCapDev->open(DeviceNum);
+            //pCapDev->open(DeviceNum);
+            pCapDev->open(0);
         }
 
         if (!pCapDev->isOpened())
@@ -136,7 +136,7 @@ bool CameraOpenCV::Capture(int duration, usImage& img, int options, const wxRect
 
         // Grab at least one frame...
         pCapDev->read(captured_frame);
-        cvtColor(captured_frame,captured_frame,CV_RGB2GRAY);
+        cvtColor(captured_frame,captured_frame,cv::COLOR_RGB2GRAY);
 
         cv::Size sz = captured_frame.size();
 
@@ -154,7 +154,7 @@ bool CameraOpenCV::Capture(int duration, usImage& img, int options, const wxRect
         {
             nframes++;
             pCapDev->read(captured_frame);
-            cvtColor(captured_frame,captured_frame,CV_RGB2GRAY);
+            cvtColor(captured_frame,captured_frame,cv::COLOR_RGB2GRAY);
             dptr = captured_frame.data;
             for (unsigned int i = 0; i < img.NPixels; i++)
             {

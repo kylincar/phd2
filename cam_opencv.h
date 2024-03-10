@@ -37,7 +37,9 @@
 #ifndef CAM_OPENCV_H_INCLUDED
 #define CAM_OPENCV_H_INCLUDED
 
-#include <opencv/highgui.h>
+#include <opencv2/core.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
 
 class CameraOpenCV : public GuideCamera
 {

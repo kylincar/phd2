@@ -121,6 +121,11 @@ enable_testing()
 # to be changed in add_subdirectory
 include(thirdparty/thirdparty.cmake)
 
+find_package(OpenCV REQUIRED)
+MESSAGE(STATUS "OpenCV Required.")
+
+# Include OpenCV headers
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 #################################################################################
 #
@@ -765,7 +770,7 @@ elseif(UNIX)
    ${guiding_SRC}
    ${phd2_SRC}
    )
-  target_link_libraries(phd2 X11)
+  target_link_libraries(phd2 X11 ${OpenCV_LIBS})
 
   set_target_properties(
     phd2
